@@ -40,7 +40,7 @@ struct SolidusSearchSheetPage<Content: View, BottomBar: View>: View {
 
                         // PAGE CONTENT
                         content()
-                            .padding(.horizontal, 8)
+                            .padding(.horizontal, 24)
 
                         // EXTRA SPACE TO FLOAT ABOVE BAR
                         Spacer().frame(height: SolidusBottomLayout.bottomPadding)
@@ -51,7 +51,7 @@ struct SolidusSearchSheetPage<Content: View, BottomBar: View>: View {
                 // FIXED BOTTOM SEARCH BAR
                 VStack(spacing: 0) {
                     bottomBar()
-                        .padding(.horizontal, 24)
+                        .padding(.horizontal, SolidusBottomLayout.bottomOffset)
                         .padding(.bottom, SolidusBottomLayout.bottomPadding - 48)
                 }
                 .ignoresSafeArea(edges: .bottom)
@@ -60,10 +60,14 @@ struct SolidusSearchSheetPage<Content: View, BottomBar: View>: View {
             // APPLE’S BUILT-IN TOOLBAR
             .toolbar {
 
-                // SYSTEM CANCEL / X BUTTON (adaptive)
+                // SYSTEM X BUTTON
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("cancel") {
+                    Button {
                         dismissSheet()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.primary)
                     }
                 }
 

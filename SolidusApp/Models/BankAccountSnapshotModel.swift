@@ -1,5 +1,5 @@
 //
-//  BankAccountSnapshot.swift
+//  BankAccountSnapshotModel.swift
 //  SolidusApp
 //
 //  Created by racecar on 11/18/25.

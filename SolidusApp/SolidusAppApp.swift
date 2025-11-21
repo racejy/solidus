@@ -9,24 +9,30 @@ import SwiftUI
 import SwiftData
 
 @main
-struct SolidusAppApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+struct SolidusApp: App {
+    @State private var modelContainer: ModelContainer
+    @State private var transactionsVM: TransactionsViewModel
+    @State private var accountsVM: AccountsViewModel
 
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    init() {
+        let container = try! ModelContainer(
+            for: TransactionModel.self,
+                BankAccount.self,
+                CardAccount.self,
+                BankAccountSnapshot.self,
+                StatementModel.self
+        )
+        _modelContainer = State(initialValue: container)
+        _transactionsVM = State(initialValue: TransactionsViewModel(context: container.mainContext))
+        _accountsVM = State(initialValue: AccountsViewModel(context: container.mainContext))
+    }
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(transactionsVM)
+                .environmentObject(accountsVM)
+                .modelContainer(modelContainer)
         }
-        .modelContainer(sharedModelContainer)
     }
 }

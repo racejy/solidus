@@ -1,5 +1,5 @@
 //
-//  BankAccount.swift
+//  BankAccountModel.swift
 //  SolidusApp
 //
 //  Created by racecar on 11/18/25.
@@ -35,8 +35,8 @@ final class BankAccount {
     // NAME & NUMBER
     var displayName: String {
         if let nickname, !nickname.isEmpty {
-            return "\(nickname) #\(last4)"
+            return "\(nickname) ••••\(last4)"
         }
-        return "\(bankName) #\(last4)"
+        return "\(bankName) ••••\(last4)"
     }
 }

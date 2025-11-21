@@ -1,5 +1,5 @@
 //
-//  CardAccount.swift
+//  CardAccountModel.swift
 //  SolidusApp
 //
 //  Created by racecar on 11/18/25.
@@ -35,8 +35,8 @@ final class CardAccount {
     // NAME & NUMBER
     var displayName: String {
         if let nickname, !nickname.isEmpty {
-            return "\(nickname) #\(last4)"
+            return "\(nickname) ••••\(last4)"
         }
-        return "\(cardName) #\(last4)"
+        return "\(cardName) ••••\(last4)"
     }
 }

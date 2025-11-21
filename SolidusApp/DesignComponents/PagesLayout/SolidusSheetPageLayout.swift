@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct SolidusSheetPage<Content: View, Bottom: View>: View {
 
@@ -36,16 +35,16 @@ struct SolidusSheetPage<Content: View, Bottom: View>: View {
 
                 // MAIN SCROLL AREA
                 ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading, spacing: 16) {
 
-                        // Match your header spacing
-                        Spacer().frame(height: SolidusHeaderLayout.headerTopPadding + 20)
+                        // Header spacing
+                        Spacer().frame(height: SolidusHeaderLayout.headerTopPadding - 60)
 
                         // Page Content
                         content()
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 24)
 
-                        // Bottom filler to lift content above button
+                        // Bottom spacing
                         Spacer().frame(height: SolidusBottomLayout.bottomPadding)
                     }
                 }
@@ -54,8 +53,8 @@ struct SolidusSheetPage<Content: View, Bottom: View>: View {
                 VStack {
                     Spacer()
                     bottomButton()
-                        .padding(.horizontal, SolidusFABLayout.fabTrailingPadding)
-                        .padding(.bottom, SolidusFABLayout.fabBottomPadding)
+                        .padding(.horizontal, SolidusBottomLayout.bottomOffset)
+                        .padding(.bottom, SolidusBottomLayout.bottomPadding - 20)
                 }
                 .ignoresSafeArea()
             }
@@ -63,10 +62,14 @@ struct SolidusSheetPage<Content: View, Bottom: View>: View {
             // SYSTEM TOOLBAR
             .toolbar {
 
-                // SYSTEM CANCEL / X BUTTON (adaptive)
+                // SYSTEM X BUTTON
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button {
                         dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.primary)
                     }
                 }
 
@@ -80,24 +83,4 @@ struct SolidusSheetPage<Content: View, Bottom: View>: View {
             .toolbarTitleDisplayMode(.inline)
         }
     }
-}
-
-
-
-#Preview {
-    let container = try! ModelContainer(
-        for: TransactionModel.self,
-            BankAccount.self,
-            CardAccount.self,
-            BankAccountSnapshot.self,
-        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-    )
-
-    let tvm = TransactionsViewModel(context: container.mainContext)
-    let avm = AccountsViewModel(context: container.mainContext)
-
-    ContentView()
-        .environmentObject(tvm)
-        .environmentObject(avm)
-        .modelContainer(container)
 }
