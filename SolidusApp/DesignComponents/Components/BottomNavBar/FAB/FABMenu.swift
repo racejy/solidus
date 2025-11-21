@@ -22,7 +22,7 @@ struct FABMenu: View {
             // BACKDROP
             if isOpen {
                 ZStack {
-                    solidusBackdropBlur(style: .systemUltraThinMaterialDark)
+                    SolidusBackdropBlur(style: .systemUltraThinMaterialDark)
                         .ignoresSafeArea()
 
                     Color.black.opacity(0.25)
@@ -87,9 +87,3 @@ struct FABMenu: View {
         .animation(SolidusAnimation.smooth, value: isOpen)
     }
 }
-
-
-
-
-
-#Preview { ContentView() }

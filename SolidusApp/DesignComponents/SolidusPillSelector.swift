@@ -5,9 +5,9 @@
 //  Created by racecar on 11/20/25.
 //
 
-import Foundation
+import SwiftUI
 
-struct AccountOption: Identifiable {
+struct AccountOption: Identifiable, Hashable {
     var id: UUID?
     var label: String
 }
